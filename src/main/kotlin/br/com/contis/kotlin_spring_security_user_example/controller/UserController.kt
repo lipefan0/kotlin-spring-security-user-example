@@ -3,6 +3,7 @@ package br.com.contis.kotlin_spring_security_user_example.controller
 import br.com.contis.kotlin_spring_security_user_example.entity.UserEntity
 import br.com.contis.kotlin_spring_security_user_example.service.UserService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/users")
+@PreAuthorize("hasRole('ADMIN')")
 class UserController(
     private val userService: UserService
 ) {

@@ -23,7 +23,7 @@ class JwtTokenProvider(
 
         return Jwts.builder()
             .subject(user.email)
-            .claim("role", user.role)
+            .claim("role", user.role.name)
             .issuedAt(now)
             .expiration(expirationDate)
             .signWith(key)
@@ -31,12 +31,16 @@ class JwtTokenProvider(
     }
 
     fun getEmailFromToken(token: String): String {
-        val claims: Claims = Jwts.parser()
+        return getClaimsFromToken(token).subject
+    }
+
+    // Método para extrair todas as claims
+    private fun getClaimsFromToken(token: String): Claims {
+        return Jwts.parser()
             .verifyWith(key)
             .build()
             .parseSignedClaims(token)
             .payload
-        return claims.subject
     }
 
     fun validateToken(token: String): Boolean {
