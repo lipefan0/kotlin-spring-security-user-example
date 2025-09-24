@@ -13,7 +13,7 @@ import javax.crypto.SecretKey
 @Component
 class JwtTokenProvider(
     @Value("\${app.secret}") private val secret: String,
-    @Value("\${app.expiration-in-ms}") private val expirationInMs: Long
+    @Value("\${app.expiration}") private val expirationInMs: Long
 ) {
     private val key: SecretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret))
 
@@ -23,6 +23,7 @@ class JwtTokenProvider(
 
         return Jwts.builder()
             .subject(user.email)
+            .claim("role", user.role)
             .issuedAt(now)
             .expiration(expirationDate)
             .signWith(key)

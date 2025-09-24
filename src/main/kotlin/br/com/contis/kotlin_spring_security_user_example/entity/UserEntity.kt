@@ -20,6 +20,7 @@ data class UserEntity(
     @Column(unique = true, nullable = false)
     val email: String,
     val passwordHash: String,
+    @Column(columnDefinition = "INTEGER")
     val role: RoleEnum
 ): UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority?> = emptyList()

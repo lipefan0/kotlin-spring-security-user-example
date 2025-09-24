@@ -25,12 +25,7 @@ logging:
   level:
     org.hibernate.sql: debug
 
-# =====================
-# JWT (externalizado)
-# =====================
-# Pode sobrescrever via variáveis de ambiente:
-#   JWT_SECRET (string >= 32 chars)  /  JWT_EXP (segundos)
+
 app:
-  jwt:
-    secret: ${JWT_SECRET:change-me-please-at-least-32-chars-long-secret}
-    expiration-seconds: ${JWT_EXP:3600}
+  secret: ChaveSecretaSuperSeguraParaAssinarTokensJwtComPeloMenos256BitsDeTamanho
+  expiration:  3600000 # 1 hora em milissegundos
