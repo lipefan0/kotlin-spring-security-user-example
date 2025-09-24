@@ -2,6 +2,7 @@ package br.com.contis.kotlin_spring_security_user_example.service
 
 import br.com.contis.kotlin_spring_security_user_example.entity.UserEntity
 import br.com.contis.kotlin_spring_security_user_example.repository.UserRepository
+import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -21,4 +22,9 @@ class UserService(
 
         return userRepository.save(userEntity)
     }
+
+    fun findAll(): List<UserEntity> = userRepository.findAll()
+
+    fun findUserById(id: Long): UserEntity? = userRepository.findById(id)
+        .orElseThrow { ChangeSetPersister.NotFoundException()}
 }
